@@ -189,10 +189,7 @@ The two trees differ in exactly six files — `README.md`, `requirements.txt`,
 plus `cpu/script/`, which has no GPU counterpart. Everything else, the vendored physics
 layer and the frozen artifact included, is byte-identical.
 
-## Reference
-
-The accompanying manuscript describes the method, the five freeze–validate chains, and the
-acquisition-design rules. The previous version, its benchmark comparisons, and the research
+The previous version, its benchmark comparisons, and the research
 history are at
 [eric-haotian/eis-pem-identification](https://github.com/eric-haotian/eis-pem-identification).
 
@@ -360,7 +357,7 @@ Contents/Resources/PipelineManifest.txt
 - Developer ID 签名；
 - Apple 公证。
 
-## CSV 数据契约
+## CSV 输入规定
 
 标准格式包含 5 列，每一行对应一个频率点，同一实验条件下的阻抗谱按顺序首尾连接：
 
@@ -419,9 +416,6 @@ bin/selftest.py
 
 除此以外，两个版本的所有内容均逐字节一致，包括所内嵌的物理模型层和冻结后的系统工件。
 
-## 参考资料
-
-随附论文详细描述了该方法、5 条冻结—验证链以及采集设计规则。
 
 上一版本、相关基准比较和研究发展历史可见：
 
