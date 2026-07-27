@@ -1,7 +1,7 @@
 # EIS-PEM ShanHaiJue 山海决
 
-Routed multi-estimator identification (**ShanHaiJue**, 山海决) and risk-controlled
-certification (**ShanHaiJian**, 山海鉴) for lithium-ion battery EIS parameter recovery on a
+Routed multi-estimator identification and risk-controlled
+certification for lithium-ion battery EIS parameter recovery on a
 48-parameter DFN-like SEIS forward model.
 
 This is the next version of
