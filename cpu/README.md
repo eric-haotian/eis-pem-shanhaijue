@@ -1,7 +1,7 @@
-# EIS-PEM ShanHaiJue + ShanHaiJian — CPU distribution
+# EIS-PEM ShanHaiJue — CPU distribution
 
-Routed multi-estimator identification (**ShanHaiJue**) and risk-controlled certification
-(**ShanHaiJian**) for lithium-ion battery EIS parameter recovery, on a 48-parameter
+Routed multi-estimator identification and risk-controlled certification
+for lithium-ion battery EIS parameter recovery, on a 48-parameter
 DFN-type frequency-domain impedance model.
 
 This distribution runs the identical algorithm on CPU (scipy trust-region-reflective).
