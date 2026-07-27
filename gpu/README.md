@@ -1,4 +1,4 @@
-# EIS-PEM ShanHaiJue + ShanHaiJian — GPU distribution
+# EIS-PEM ShanHaiJue — GPU distribution
 
 Routed multi-estimator identification and risk-controlled certification
  for lithium-ion battery EIS parameter recovery, on a 48-parameter
