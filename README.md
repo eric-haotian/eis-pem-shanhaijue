@@ -96,8 +96,10 @@ python3 bin/certify.py --system artifacts/validated_system --budget 0.60 --demo
 
 The demo simulates one fresh cell, fits the eight-arm ensemble, routes every coordinate,
 and applies the frozen certifier, printing the certified claims with their calibrated
-probabilities. `python3 bin/selftest.py` runs every stage end to end on a deliberately
-small grid in a couple of minutes.
+probabilities and marking which were correct. It runs the full 25 × 120 grid on one core,
+so budget **15–20 minutes** (measured: 16 min on an M-series MacBook Air). To check the
+installation instead, `python3 bin/selftest.py` exercises every stage on a deliberately
+small grid in about 90 seconds.
 
 For the GPU edition, `cd gpu` instead and add the CUDA build of JAX that matches your
 driver:

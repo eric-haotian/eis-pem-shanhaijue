@@ -41,7 +41,7 @@ outside it — 1.5.2 raises inside `predict_proba`, 1.9.0 cannot unpickle at all
 `artifacts/validated_system/ENVIRONMENT.json` records the measurement, and `load_frozen`
 says so explicitly if you land outside the window anyway.
 
-## 2. Five-minute self-test
+## 2. One-cell demo
 
 ```bash
 python3 bin/certify.py --system artifacts/validated_system --budget 0.60 --demo
@@ -50,6 +50,12 @@ python3 bin/certify.py --system artifacts/validated_system --budget 0.60 --demo
 Simulates one fresh cell, fits the eight-arm ensemble, routes every coordinate, and
 applies the frozen certifier. It prints the certified claims with their calibrated
 probabilities and (because the demo cell has a known truth) marks which were correct.
+
+This is the full 25-condition × 120-frequency grid and all 23 bounded fits, so the first
+cell also pays a JAX compilation pass. The same run takes about 16 minutes on one CPU core
+(see the CPU distribution); budget accordingly if you are on a small card. To check the
+installation rather than the science, `python3 bin/selftest.py` exercises every stage on a
+deliberately small grid in a couple of minutes.
 
 ## 3. Full workflow
 

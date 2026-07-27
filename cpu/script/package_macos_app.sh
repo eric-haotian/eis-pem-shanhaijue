@@ -161,7 +161,12 @@ fi
 
 export PYTHONDONTWRITEBYTECODE=1
 export EIS_PEM_APP_BUNDLE="$BUNDLE_DIR"
-cd "$APP_DIR"
+
+# Deliberately NOT cd into the bundle: anything written inside a signed .app invalidates
+# its seal, and Gatekeeper then refuses to launch it. The window resolves the frozen
+# system absolutely and defaults its workbook next to the input CSV, so it needs no cwd
+# inside the bundle; $HOME is somewhere the user can actually write.
+cd "$HOME"
 
 {
   echo "[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] launching the desktop interface"
@@ -190,7 +195,14 @@ if [[ -z "\${PYTHON:-}" || ! -x "\$PYTHON" ]]; then
   exit 1
 fi
 export PYTHONDONTWRITEBYTECODE=1
-cd "\$APP_DIR"
+
+# Stay in the caller's directory. bin/ scripts resolve their own package path, so they do
+# not need the bundle as cwd, and running from inside it would drop run outputs into a
+# signed .app and invalidate its seal. \$SHANHAIJUE_SYSTEM saves typing the long path:
+#
+#     shanhaijue-certify --system "\$SHANHAIJUE_SYSTEM" --budget 0.60 --demo
+#
+export SHANHAIJUE_SYSTEM="\$APP_DIR/artifacts/validated_system"
 exec "\$PYTHON" "\$APP_DIR/bin/$src.py" "\$@"
 SH
   chmod +x "$MACOS_DIR/shanhaijue-$name"
@@ -390,6 +402,20 @@ if command -v codesign >/dev/null 2>&1; then
   if codesign --force --deep --sign - "$APP_BUNDLE" >/dev/null 2>&1; then
     codesign --verify --deep --strict "$APP_BUNDLE" 2>/dev/null || \
       echo "Warning: ad-hoc codesign verification failed; the bundle was still built." >&2
+
+    # An entry that writes into the bundle invalidates the seal and Gatekeeper then
+    # refuses to launch the app. Exercise one from outside and re-verify, so that
+    # regression is caught here rather than on a user's machine.
+    probe_dir="$(mktemp -d)"
+    ( cd "$probe_dir" && "$MACOS_DIR/shanhaijue-certify" --help >/dev/null 2>&1 ) || true
+    rm -rf "$probe_dir"
+    if codesign --verify --deep --strict "$APP_BUNDLE" 2>/dev/null; then
+      echo "Seal intact after running a bundled entry."
+    else
+      echo "ERROR: running a bundled entry broke the code signature — an entry is" >&2
+      echo "writing inside the bundle. Fix that before shipping." >&2
+      exit 1
+    fi
   else
     echo "Warning: ad-hoc codesign failed; the bundle was still built." >&2
   fi
