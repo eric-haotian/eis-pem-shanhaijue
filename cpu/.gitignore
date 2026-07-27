@@ -1,0 +1,32 @@
+# run outputs — the distribution ships programs only
+*.jsonl
+*.jsonl.gz
+*_report.json
+*_result.json
+routing_report.json
+validation_result.json
+certified_claims.json
+rows.jsonl
+
+# macOS app build output
+dist/
+
+# desktop interface output
+*.xlsx
+
+# systems frozen locally; only artifacts/validated_system/ is shipped
+artifacts/*
+!artifacts/validated_system/
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+
+# editor / OS
+.DS_Store
+.idea/
+.vscode/
