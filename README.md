@@ -9,6 +9,8 @@ This is the next version of
 **ShanHaiJue**. The forward model, the parameter machinery, and the identifiability
 diagnostics carry over unchanged; what is new is the layer above them.
 
+learning AI at **www.haotianblog.com**
+
 ## What Changed
 
 The previous version screened identifiability once, estimated the free subset, and
