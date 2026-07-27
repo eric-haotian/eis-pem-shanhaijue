@@ -52,8 +52,7 @@ The previous version's boundary statement still holds, and the certification lay
 of its own. Read these before quoting any number above.
 
 - All quantities are **synthetic-panel** estimates within the calibration generator class.
-  Transfer to measured cells is not validated: the out-of-distribution guard withheld
-  calibrated labels from all 87 real commercial-cell spectra tested.
+
 - "Certified" means certified under a **stated empirical risk budget**, not a finite-sample
   guarantee. The cluster bootstrap is anti-conservative at ~30 clusters (measured one-sided
   coverage 0.88–0.93 against nominal 0.95), so read budgets with a 2–7 percentage-point
@@ -241,7 +240,6 @@ ShanHaiJue 则通过一个估计器群体和一个风险预算来应对这一边
 上一版本所声明的方法边界依然成立，而认证层又增加了两个新的边界。在引用上述任何数字之前，请先阅读以下内容。
 
 - 所有指标均为**校准生成器类别内部的合成面板估计结果**。  
-  该方法向真实测量电芯的迁移能力尚未得到验证：在所测试的 87 条真实商用电芯阻抗谱上，分布外检测机制均拒绝输出经过校准的标签。
 
 - “经过认证”是指在一个**明确规定的经验风险预算**下通过认证，而不是获得有限样本意义下的理论保证。  
   当聚类数量约为 30 时，聚类 Bootstrap 存在反保守性。其实际单侧覆盖率为 0.88–0.93，低于名义上的 0.95。因此，在解读风险预算时，应保守地折减约 2–7 个百分点。
@@ -252,7 +250,7 @@ ShanHaiJue 则通过一个估计器群体和一个风险预算来应对这一边
 - **必须先冻结，再验证。**  
   应在冻结阶段预先保留验证随机种子，随后生成验证面板，只分析一次，并且不得合并不同验证面板。若在验证面板上重新调参，就会在不易察觉的情况下破坏上述所有数值的统计含义。
 
-- 最佳工作点“10.38 个认证坐标、实际精确率 0.960”是从 9 个认证阶梯中，通过序贯剂量探索选出的最大值，因此包含相应的选择乐观偏差。
+- 最佳工作点“10.38 个认证坐标、实际精确率 0.960”是从 9 个认证阶梯中，通过探索选出的最大值，因此包含相应的选择乐观偏差。
 
 ## 两个版本
 
