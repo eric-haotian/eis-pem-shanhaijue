@@ -1,0 +1,36 @@
+{
+  "system": "eight-arm routed ensemble + risk-controlled certifier",
+  "arms": ["lam3", "lam1", "lam06", "lam03", "lam01", "lam003", "M1", "M4"],
+  "development_panel": "30 truths x 2 noise, 5 SOC x 5 temperature, 120 frequencies",
+  "routed_recovery_of_48": {
+    "development": 27.95,
+    "validated": [
+      {"panel": "chain 3", "value": 27.78, "ci": [26.68, 28.87]},
+      {"panel": "chain 4", "value": 26.82, "ci": [25.87, 27.70]},
+      {"panel": "chain 5", "value": 27.82, "ci": [26.67, 28.97]}
+    ],
+    "single_estimator_baseline": 17.1
+  },
+  "certification_rungs": [
+    {"budget": 0.32, "threshold": 0.902384, "validated_on": "chain 3",
+     "correct_per_cell": 8.48, "false_per_cell": 0.28, "realized_precision": 0.968},
+    {"budget": 0.32, "threshold": 0.902384, "validated_on": "chain 4",
+     "correct_per_cell": 8.28, "false_per_cell": 0.27, "realized_precision": 0.969},
+    {"budget": 0.50, "threshold": 0.896294, "validated_on": "chain 4",
+     "correct_per_cell": 8.98, "false_per_cell": 0.32, "realized_precision": 0.966},
+    {"budget": 0.55, "threshold": 0.894132, "validated_on": "chain 5",
+     "correct_per_cell": 9.77, "false_per_cell": 0.38, "realized_precision": 0.962},
+    {"budget": 0.60, "threshold": 0.888354, "validated_on": "chain 5",
+     "correct_per_cell": 10.38, "false_per_cell": 0.43, "realized_precision": 0.960,
+     "note": "best validated operating point at >=0.95 realized precision"},
+    {"budget": 0.65, "threshold": 0.880287, "validated_on": "chain 4",
+     "correct_per_cell": 10.93, "false_per_cell": 0.58, "realized_precision": 0.949,
+     "note": "below the 0.95 preregistered criterion by 0.07 percentage points; reported as recorded"}
+  ],
+  "provenance": {
+    "router_and_calibrator": "identical across chains 4 and 5 (same development panel, same seed); verified bit-for-bit before merging the rung tables",
+    "each_rung_validated_on": "its own never-before-generated panel, analysed exactly once, never pooled",
+    "reference_grader_contrast": "+2.32 correct parameters per cell with fewer realized false claims (0.25 vs 0.37) on a shared panel at budget 0.32"
+  },
+  "scope": "synthetic panels within the calibration generator class; certified means certified under a stated empirical risk budget, not a finite-sample guarantee; the cluster bootstrap is anti-conservative at ~30 clusters (measured one-sided coverage 0.88-0.93 vs nominal 0.95)"
+}

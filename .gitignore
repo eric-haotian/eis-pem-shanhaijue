@@ -1,0 +1,18 @@
+# Each edition carries its own .gitignore for its run outputs and locally frozen
+# systems. This file covers only what sits above them.
+
+# macOS app build output
+cpu/dist/
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+
+# editor / OS
+.DS_Store
+.idea/
+.vscode/

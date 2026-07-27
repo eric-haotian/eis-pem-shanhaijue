@@ -1,0 +1,22 @@
+{
+  "artifact": "frozen_system.joblib",
+  "frozen_under": {
+    "scikit-learn": "1.7.2",
+    "note": "read out of the pickle's own _sklearn_version field"
+  },
+  "why_this_matters": "The calibrators are stored as their two coefficients (PlattMap) and are version-independent. The ranker is a fitted HistGradientBoostingClassifier, which cannot be reduced that way, so the artifact carries scikit-learn's pickle of it and inherits that pickle's version sensitivity.",
+  "verified_window": ">=1.6,<1.9",
+  "measured": [
+    {"scikit-learn": "1.5.2", "loads": true, "scores": "FAILS: predict_proba raises TypeError on the renamed check_array keyword ensure_all_finite"},
+    {"scikit-learn": "1.6.1", "loads": true, "scores": "bit-identical to 1.7.2"},
+    {"scikit-learn": "1.7.2", "loads": true, "scores": "freezing version"},
+    {"scikit-learn": "1.8.0", "loads": true, "scores": "bit-identical to 1.7.2"},
+    {"scikit-learn": "1.9.0", "loads": false, "scores": "FAILS to unpickle: sklearn._loss was restructured"}
+  ],
+  "equivalence_check": {
+    "date": "2026-07-27",
+    "method": "fixed synthetic feature rows (seed 20260727, 8 arms x 48 coordinates) scored through router.score, router.route, and certifier.calibrated; compared by SHA-256 of the rounded probability vector",
+    "result": "1.6.1, 1.7.2 and 1.8.0 agree exactly, including the certified count at budget 0.60"
+  },
+  "if_out_of_window": "Install a scikit-learn in range, or re-freeze the system on your own scikit-learn following README section 3. Re-freezing produces a different system and needs its own validation panel."
+}
