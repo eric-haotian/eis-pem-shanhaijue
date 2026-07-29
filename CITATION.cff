@@ -5,7 +5,7 @@ type: software
 authors:
   - family-names: "Zhong"
     given-names: "Haotian"
-    orcid: "https://orcid.org/0000-0000-0000-0000"
+    orcid: "https://orcid.org/0009-0009-5567-1315"
 version: 1.0.0
 date-released: 2026-07-28
 repository-code: "https://github.com/eric-haotian/eis-pem-shanhaijue"
