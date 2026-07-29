@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite this software and the associated article."
+title: "EIS-PEM ShanHaiJue"
+type: software
+authors:
+  - family-names: "Zhong"
+    given-names: "Haotian"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+version: 1.0.0
+date-released: 2026-07-28
+repository-code: "https://github.com/eric-haotian/eis-pem-shanhaijue"
+license: Apache-2.0
