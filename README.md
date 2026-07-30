@@ -11,30 +11,6 @@ diagnostics carry over unchanged; what is new is the layer above them.
 
 learning AI at **www.haotianblog.com**
 
-## What Changed
-
-The previous version screened identifiability once, estimated the free subset, and
-reported the rest as fixed reference assumptions. It stated the boundary honestly — a good
-impedance fit does not imply reliable physical parameters — but it answered that boundary
-with a single estimator and a single selection.
-
-ShanHaiJue answers it with a population and a budget:
-
-- **An ensemble along the prior-strength axis.** Arms differ only in the prior scale λ and
-  in initialization. At λ = 1 the prior stabilises the flat directions of the sloppy cost
-  valley at the price of bias on the data-determined directions; as λ → 0 that bias
-  vanishes but the flat directions destabilise. The regimes therefore fail on *different*
-  coordinates (correct-set Jaccard index 0.515), so a per-coordinate oracle over eight arms
-  reaches 35.7 of 48 against 17.1–18.5 for any single member.
-- **Per-coordinate routing on ground-truth-free evidence.** A gradient-boosted ranker maps
-  ten diagnostics — none of which requires knowing the answer — to a claim probability per
-  (arm, coordinate), and each coordinate is taken from its highest-scoring arm. Truth labels
-  train the ranker offline; deployment consumes none.
-- **Certification under a stated false-claim budget.** The claim threshold is the smallest
-  one whose false claims per cell respect a preregistered budget at a 95 % upper confidence
-  bound, bootstrapped over generating truths rather than over rows. Abstention is the
-  default state: a coordinate below the threshold is simply not claimed.
-
 | Quantity | ShanHaiJue | Previous version |
 |---|---|---|
 | Recovered coordinates per cell (of 48) | **27.8** | 17.1 single-estimator baseline |
@@ -206,24 +182,6 @@ Apache License 2.0 — see [LICENSE](LICENSE).
 
 AI 学习与交流：**www.haotianblog.com**
 
-## 主要变化
-
-上一版本首先执行一次可辨识性筛选，然后估计可自由辨识的参数子集，并将其余参数报告为固定参考假设。它如实指出了一个关键边界：
-
-> 良好的阻抗拟合并不意味着物理参数能够被可靠恢复。
-
-但上一版本只使用单一估计器和单一参数选择方案来处理这一问题。
-
-ShanHaiJue 则通过一个估计器群体和一个风险预算来应对这一边界：
-
-- **沿先验强度轴构建估计器集成。**  
-  各估计器分支仅在先验尺度 λ 和初始化方式上有所不同。当 λ = 1 时，先验能够稳定病态代价谷中的平坦方向，但会对由数据充分决定的方向引入偏差；随着 λ → 0，这种偏差逐渐消失，但平坦方向也会重新变得不稳定。因此，不同估计器会在不同参数坐标上失败。各估计器正确坐标集合之间的 Jaccard 指数为 0.515；从 8 个估计器中逐坐标选取最优结果的 oracle，可恢复 48 个坐标中的 35.7 个，而任一单独估计器只能恢复 17.1–18.5 个。
-
-- **依据无需真实值的证据进行逐坐标路由。**  
-  一个梯度提升排序器将 10 项诊断指标映射为每个“估计器分支—参数坐标”组合的声明概率。这些诊断指标均不需要知道真实答案。每个参数坐标最终采用评分最高的估计器分支。真实值标签仅用于离线训练排序器；部署阶段不需要真实值。
-
-- **在明确的错误声明预算下实施认证。**  
-  声明阈值被定义为满足以下条件的最小阈值：在 95% 上置信界下，每个电芯的错误声明数不超过预注册预算。该置信界通过对生成真值进行聚类 Bootstrap 获得，而不是对单独数据行进行 Bootstrap。系统默认选择弃权：当某个坐标的概率低于阈值时，系统不对其作出声明。
 
 | 指标 | ShanHaiJue | 上一版本 |
 |---|---:|---:|
