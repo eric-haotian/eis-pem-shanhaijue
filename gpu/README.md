@@ -183,32 +183,8 @@ acquisition design. Certification does not transfer that freely: compare your gr
 `pipeline.frozen_grid(frozen)`, and where it differs, treat the claims as point estimates
 until you have re-frozen and re-validated on that grid (§3c–e).
 
-## 6. What the pieces do
 
-| Module | Role |
-|---|---|
-| `shanhaijue/panel.py` | 48-parameter forward model, physics priors, acquisition grid, physical claim basis, synthetic panel generation |
-| `shanhaijue/arms.py` | **ShanHaiJue**: the estimator ensemble along the prior-strength axis λ ∈ {3, 1, 0.6, 0.3, 0.1, 0.03} + wide multistart + data-only refinement, all on a batched JAX/CUDA LM solver with SVD-damped steps |
-| `shanhaijue/features.py` | ten ground-truth-free per-coordinate diagnostics (curvature, dispersion, held-out shift, cross-arm disagreement, …) |
-| `shanhaijue/router.py` | gradient-boosted ranker + per-arm calibration + arg-max routing, with truth-grouped cross-fitting |
-| `shanhaijue/certifier.py` | **ShanHaiJian**: Platt calibration on cross-fitted routed scores + false-claim budget enforced at a truth-cluster bootstrap upper confidence bound |
-| `shanhaijue/pipeline.py` | panel → ensemble → features → router → certifier orchestration, freezing, and single-pass validation |
-| `shanhaijue/vendor/eispem/` | vendored physics layer: the 48-parameter impedance model, its parameter/prior machinery, and the numerical utilities they need (35 modules, one flat namespace, empty package initialiser so importing one module drags in nothing else) |
-| `gui/` | desktop interface: `app.py` window, `params.py` the tunable panel declared as data, `i18n.py` every user-visible string in both languages, `csv_io.py` permissive reader and XLSX writer, `results.py` the live results table, `widgets.py` tooltip/row/scroll helpers, `fitjob.py` the per-cell parallel job |
-| `examples/` | `calibration_grid_25x120.csv` (canonical format, on the calibration grid) and a 30-row `format_sample.csv` |
-| `artifacts/validated_system/` | the frozen system behind the numbers in the table above |
-
-## 7. Why the ensemble works
-
-Arms differ **only** in the prior scale λ and initialization. At λ = 1 the prior
-stabilises the flat directions of the sloppy cost valley at the price of bias on the
-data-determined directions; as λ → 0 that bias vanishes but the flat directions
-destabilise. The regimes therefore fail on *different* coordinates (correct-set Jaccard
-index 0.515), so a per-coordinate oracle over the ensemble reaches 35.7 of 48 at eight
-arms against 17.1–18.5 for any single member. The router captures 58–63 % of that
-headroom without ever seeing a truth label at inference time.
-
-## 8. Scope and honest limits
+## 6. Scope and honest limits
 
 - All quantities are **synthetic-panel** estimates within the calibration generator
   class. Transfer to measured cells is not validated; the out-of-distribution guard in
@@ -225,7 +201,7 @@ headroom without ever seeing a truth label at inference time.
   the validation panel afterwards, analyse it once, and never pool panels. Re-tuning on
   a validation panel silently destroys the meaning of every number above.
 
-## 9. Self-test status
+## 7. Self-test status
 
 Both distributions were verified end-to-end on the reduced self-test grid
 (4 conditions x 24 frequencies, three-arm ladder, small iteration budget):
@@ -241,14 +217,8 @@ validation on a fresh panel. Its recovery and precision numbers are meaningless 
 performance figures: the grid is deliberately tiny so the check runs in minutes. The
 validated performance is in `artifacts/validated_system/VALIDATED_PERFORMANCE.json`.
 
-## 10. Reference
 
-The accompanying manuscript describes the method, the five freeze–validate chains, and
-the acquisition-design rules. The manuscript sources (`paper_eis_sci_cn/`) and the full
-evidence map (`paper_experiment_runs/PIPELINE_MAP.md`) live in the research repository
-this distribution is cut from; they are not part of the distribution itself.
-
-## 11. License
+## 8. License
 
 Apache License 2.0 — see `LICENSE`. The vendored physics layer under
 `shanhaijue/vendor/eispem/` is covered by the same license.
